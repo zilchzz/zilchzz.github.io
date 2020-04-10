@@ -239,15 +239,12 @@ class MainActivity : AppCompatActivity() {
 	}
 }
 ```
-  上述代码的逻辑很简单，有两个 Button，每个 Btn 点击后都会启动一次 IntentService。现在让我们来看看连续执行多个任务时，任务会以串行的方式还是并行的方式执行。
+  上述代码的逻辑很简单，有两个 Button，每个 Btn 点击后都会启动一次 IntentService。现在让我们来看看连续执行多个任务时，任务会以串行的方式还是并行的方式执行。  
   下面的截图是只点击 Btn1 的运行结果：
-    
 <a href="https://i.loli.net/2019/03/05/5c7e4ceb30ba0.png"><img src="https://i.loli.net/2019/03/05/5c7e4ceb30ba0.png" alt="" /></a>
-  
   可以看到，只点击一个 Btn 时，执行完会立即停止这个服务。下面我们看看在点击 Btn1 之后立即点击 Btn2 的结果：
   
 <a href="https://i.loli.net/2019/03/05/5c7e4d3f1edf8.png"><img src="https://i.loli.net/2019/03/05/5c7e4d3f1edf8.png" alt="" /></a>
-  
   而在这种情况下任务2会在任务1完成之后才开始执行，但是 startCommand 方法是立即执行的，所以我们的结论得以验证。
 
 >

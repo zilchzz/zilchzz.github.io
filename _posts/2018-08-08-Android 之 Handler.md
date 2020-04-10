@@ -505,7 +505,7 @@ public final class Message implements Parcelable {
     }
 }
  ```
-  这里的 sPool 是一个私有静态对象，当 Looper 对象在 loop() 方法中将一个消息交给 Handler 处理完毕后，会调用将这个消息的 recycleUnchecked() 。在调用这个方法之后，这个消息就会擦除所有信息，赋值给 sPool 这个静态对象。
+  这里的 sPool 是一个私有静态对象，当 Looper 对象在 loop() 方法中将一个消息交给 Handler 处理完毕后，会调用将这个消息的 recycleUnchecked() 。在调用这个方法之后，这个消息就会擦除所有信息，赋值给 sPool 这个静态对象。  
   因此，在我们获取消息时，可以使用这个方法，避免重新创建一个 Message ，浪费内存。
 
 <h2>结语</h2>

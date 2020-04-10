@@ -510,7 +510,7 @@ public final class Message implements Parcelable {
 
 <h2>结语</h2>
   至此，Handler 体系的源码已经大体分析完了。彻底消化完这部分内容后，相信大家不管在日常使用中还是面试中都可以应付的过来。  
-  谢谢你来看我的文章，同时也希望能给你带来帮助。
+  谢谢你来看我的文章，同时也希望能给你带来帮助。
   
 >
   本文作者：ZhanZhong  

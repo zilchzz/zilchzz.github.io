@@ -90,7 +90,7 @@ public class Handler {
 
 ```java
 public static @Nullable Looper myLooper() {
-  return sThreadLocal.get();
+    return sThreadLocal.get();
 }
 ```
   看到这里可以发现，<code>ThreadLocal 是一个存在于 Looper 中的静态常量，这意味着它是所有 Looper 对象共享的</code>。接下来我们再看一下 ThreadLocal 的 get() 跟 set() 方法：
@@ -182,7 +182,8 @@ public final class Looper {
     
 
 <h4>消息的发送及存储</h4>
-  现在，我们已经创建好了 Handler 对象，也已经将 Handler 对象跟 Looper 对象绑定在了一起，接下来可以使用 Handler 来发送消息了。首先，我们看看在 Handler 中发送消息的那些方法：
+  现在，我们已经创建好了 Handler 对象，也已经将 Handler 对象跟 Looper 对象绑定在了一起，接下来可以使用 Handler 来发送消息了。  
+  首先，我们看看在 Handler 中发送消息的那些方法：
 ```java
 public class Handler {
     public final boolean post(Runnable r) {
@@ -313,7 +314,7 @@ boolean enqueueMessage(Message msg, long when) {
 }
 ```
 
-  在这一段删减后的代码中，我们可以清晰看到消息在插入消息队列时的逻辑。在该段逻辑中，存在 prev 以及 next，因此，我们可以推测 MessageQueue 其实并不是一个队列，而是一个单向链表的数据结构。  
+  在这一段删减后的代码中，我们可以清晰看到消息在插入消息队列时的逻辑。在该段逻辑中，存在 prev 以及 next，因此，我们可以推测 MessageQueue 其实并不是一个队列，而是一个单向链表。  
   具体看代码，在第一次插入消息时，该消息直接存在于头部。而在插入第二条以及之后的消息时，会拿新消息的执行时间跟当前头部消息的执行时间做对比。如果新消息需要更早执行，则直接将新消息变成新的头部。否则，会从第二条消息开始迭代，一直迭代到链表最后或者新消息的执行时间比当前迭代到的消息的执行时间更前的时候，这时候就将新消息插入到这个位置。  
   这样，整个发送、存储消息的流程就已经分析完了。但是在没有开启消息循环之前，发送出去的消息是无法得到处理的，因为 Looper 还没有彻底运行起来，即没有调用 Looper 对象中的 loop()。
   
@@ -385,9 +386,6 @@ public interface Callback {
 >
   1.将这个 Handler 声明成静态内部类；  
   2.将这个 Handler 抽取出来，定义成一个单独的类；
-
-  这样之后，内存泄漏就可以得到解决。
-  
 
 <h3>常见问题</h3>
 <h4>主线程会因为 Looper.loop() 卡死吗？</h4>
@@ -511,7 +509,8 @@ public final class Message implements Parcelable {
   因此，在我们获取消息时，可以使用这个方法，避免重新创建一个 Message ，浪费内存。
 
 <h2>结语</h2>
-  至此，Handler 体系的源码已经大体分析完了。彻底消化完这部分内容后，相信大家不管在日常使用中还是面试中都可以应付的过来。谢谢你来看我的文章，同时也希望能给你带来帮助。
+  至此，Handler 体系的源码已经大体分析完了。彻底消化完这部分内容后，相信大家不管在日常使用中还是面试中都可以应付的过来。  
+  谢谢你来看我的文章，同时也希望能给你带来帮助。
   
 >
   本文作者：ZhanZhong  
